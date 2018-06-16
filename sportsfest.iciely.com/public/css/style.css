@@ -1,0 +1,265 @@
+/*Style copied from https://github.com/indi-personal/hswc SASO signup form*/
+html, body {	
+	font-family: Verdana,Arial,"Liberation Sans",sans-serif;
+	color: #000;
+	font-size: 11pt;
+	background-color: #e5e4e5;
+    margin:0;
+    height:100%;
+}
+#container{
+    overflow: auto;
+}
+
+#content{
+    margin: 1em 0;
+    padding: 0 1em ;
+}
+body{
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+
+.footer {
+    text-align: right;
+    width: 100%;
+    box-sizing:border-box;
+    padding: 0.5em 0.5em 0.7em;
+    border-top: 0.1em solid #aaa;
+    background: #ddd;
+    padding-right:1em;
+    margin-top: auto;
+
+}
+
+
+
+.header {
+    width: 100%;
+    box-sizing:border-box;
+    padding: 0.5em 0.5em 0.7em;
+    border-bottom: 0.1em solid #aaa;
+    background: #ddd;
+    margin-bottom: auto;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+#navigation{
+        display: flex;
+            display: -webkit-flex;
+    -webkit-flex-wrap: wrap;
+
+    flex-wrap: wrap;
+}
+#navigation a {
+    padding: 0 1em;
+}
+
+.heading{
+    font-size: 2em;
+    text-align: center;
+}
+
+a:link,a:visited {
+	color: #3c3c89;
+	font-weight:bold;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #4e5273;
+	font-weight:bold;
+	text-decoration: underline;
+}
+
+h1 {
+	font-size: 18pt;
+	text-transform: uppercase;
+	color: #3c3c89;
+	text-align: center;
+}
+
+.navigation {
+	margin-left: auto;
+	margin-right: auto;	
+	text-align: center;
+	border-top: 1px #4e5273 solid;
+	width:50%;
+	padding: 22px 0px 10px 0px;
+}
+
+.alert {
+	border: 2px solid #e7dc2b;
+	margin: 0px 10px 20px 0px;
+	padding: 7px;
+	background-color: #fff888;
+	font-weight: bold;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	width: 70%;
+}
+
+.error {
+	border: 2px solid #ff0000;
+	margin: 0px 10px 20px 0px;
+	padding: 7px;
+	background-color: #ffaaaa;
+	font-weight: bold;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	width: 70%;
+}
+
+form {
+	background-color: #fff;
+	padding: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top:1%;
+	border-radius:10px;
+	box-shadow:5px 5px #a5a5b5;
+    max-width: 55em;
+}
+
+.edit { 
+	border: 2px #4e5273 solid;
+	margin: 7px;
+	padding: 7px;
+	background-color: #f1f1f1;
+	}
+
+input, textarea {
+	border: 1px solid black;
+	background-color: #fff;
+	margin: 3px 0px 0px 0px;
+}
+
+
+
+.field {
+	font-weight:bold
+	}
+
+.descrip {
+	font-size:10pt;
+	color:#202020;
+}
+
+input#join-radio:not(:checked) ~ #join-team-options, input:not(:checked) ~ #new-team-options, #grandstand-radio:checked ~ #captain-question, #sports-team:checked ~ .character-question {
+    display:none;
+}
+
+
+input#join-radio:checked ~ #join-team-options, input#new-radio:checked ~ #new-team-options, #grandstand-radio:not(:checked) ~ #captain-question, .character-question {
+    display:inline;
+}
+
+.new-team-type div{
+    display:-webkit-flex;
+    display:flex;
+    flex-wrap:wrap;
+    -webkit-flex-wrap:wrap;
+}
+.new-team-type div label{
+    width:9em;
+}
+
+.tags-box, #username-question, #email-question{
+    display:-webkit-flex;
+    display:flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    padding: 1em 0;
+}
+
+input[type=radio]{
+    margin: 0 1em ;
+}
+
+
+input[type=text]{
+    width: 100% ;
+}
+
+#roster{
+    margin:1em auto;
+    max-width: 55em;
+    
+}
+
+#roster .inner{
+    margin-top: 1em;
+	border-radius:10px;
+	box-shadow:5px 5px #a5a5b5;
+}
+
+div.team{
+    border: 0.2em solid #4e5273;
+    border-width: 0.2em 0;
+    background: #f1f0f2;
+    padding: 0.2em 0.5em 0.5em;
+}
+
+.team .title{
+    border-bottom: 0.1em solid #4e5273;
+    font-size: 1.2em;
+}
+
+
+ul.members{
+    padding:0;
+    margin:0;
+    list-style-type: none;
+}
+
+ul.members li:not(.captain){
+    display: inline-block;
+}
+
+
+ul.members li.captain+li::before{
+    content:"Members: ";
+    font-weight: bold;
+}
+
+ul.members li:not(.captain)+li::before{
+    content:", ";
+}
+li.captain::before{
+    content: "Captain: ";
+    font-weight: bold;
+}
+
+.member-count{
+    padding-left: 2em;
+}
+
+.team:first-of-type{
+    border-top-width: 0.4em;
+    
+	border-radius:10px 10px 0 0;
+    
+}
+
+
+.team:last-of-type{
+    border-bottom-width: 0.4em;
+    	border-radius: 0 0 10px 10px;
+
+}
+
+.team .title{
+    display: flex;
+    justify-content: space-between;
+}
+
+#roster > p{
+    margin: 0 0 0 2em;
+}
