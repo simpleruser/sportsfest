@@ -1,5 +1,5 @@
 <?php
-
+//print_r($_POST);
     function clearTables($confirm){
         if($confirm === TRUE){
             
@@ -15,13 +15,17 @@
     function changeEventStatus($confirm, $newStatus){
         if($confirm === TRUE){
             
-            
             $file = '../resources/config.php';
             $newStr = '        "signups" => "' . $newStatus . '",\n';
             $data = file($file); // reads an array of lines
             if($newStatus == "teamswitch"){
                 $data = array_map(function($data) {
                     return stristr($data,'        "signups" =>') ? "        \"signups\" => \"teamswitch\",\n" : $data;
+                }, $data);
+            }            
+            if($newStatus == "closed"){
+                $data = array_map(function($data) {
+                    return stristr($data,'        "signups" =>') ? "        \"signups\" => \"closed\",\n" : $data;
                 }, $data);
             }
             file_put_contents($file, implode('', $data));
@@ -33,6 +37,37 @@
 //            if (!rename($newfile, $oldfile)) {
 //                echo "failed to rename $newfile...\n";
 //            }
+            if($newStatus == "closed"){
+                require_once(DATABASE_FUNCTIONS);
+                $conn = getNewConnection();
+                $res = $conn->query("select distinct name from users where teamID in (select id from memberCount where membercount < 4 or membercount is null) and to_date is null");
+                
+                $res_users = $res->fetch_all();
+                echo "<div>Moving " . $res_users->num_rows . "participants. Usernames:<ul> ";
+                foreach($res_users as $r){
+                    echo "<li>" . $r[0] .  "</li>";
+                }
+                echo "</ul></div>";
+                $conn->query("update users set teamID = 1 where teamID in (select id from memberCount where membercount < 4 or membercount is null) and to_date is null ");
+               printf("Moved %d participants to grandstand<br/>" , $conn->affected_rows);
+                
+                $res = $conn->query("SELECT distinct contentnotes from signups where to_date is null and contentnotes <> ''");
+                
+                $contenttags = "";
+                
+                
+                $restags = $res->fetch_all();
+                foreach($restags as $r){
+                    $contenttags = $contenttags . $r[0] . "\n";
+                }
+                $resrows = $res->fetch_all();
+                
+                echo "Final content tag list:<div><textarea style='width:100%;height:10em;'>$contenttags</textarea></div>";
+                $cf = fopen("content_tags.txt", "w");
+                fwrite($cf, $contenttags);
+                fclose($cf);
+                
+            }
         }
     }
 
@@ -52,7 +87,8 @@
         
         
         if($_POST["close-signups"] == "first-pass") echo "<form><input type='hidden' value='second-pass' name='close-signups'><input type='hidden' value='closed' name='new-status'><button type='submit' name='clear-all-button' formmethod='post'>Confirm change the event status to 'Closed signups'</button></form>";
-        if($_POST["event-status"] == "second-pass"){
+        
+        if($_POST["close-signups"] == "second-pass"){
             changeEventStatus(TRUE, $_POST["new-status"]);
             
         }
